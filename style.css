@@ -1,0 +1,126 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f0f5;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  transition: background 0.5s, color 0.5s;
+}
+
+.light-theme {
+  background: #ffffff;
+  color: #222;
+}
+
+.dark-theme {
+  background: #1a1a1a;
+  color: #f5f5f5;
+}
+
+header {
+  padding: 1rem;
+  background-color: #ef5350;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.controls {
+  margin: 1rem 0;
+}
+
+.controls select,
+.controls button {
+  margin: 0 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.controls button:hover {
+  background-color: #d32f2f;
+  color: white;
+}
+
+#status {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+#gameBoard {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  gap: 16px;
+}
+
+
+
+
+
+.card {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  perspective: 1000px;
+  position: relative;
+  cursor: pointer;
+}
+
+
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  backface-visibility: hidden;
+}
+
+.card-front {
+  transform: rotateY(180deg);
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-back {
+  background-color: #3f3f3f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotateY(0deg);
+}
+
+.card-front img,
+.card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+  padding: 4px;    
+}
+
+.card.matched {
+  outline: 3px solid #4caf50;
+  outline-offset: -5px;
+}
