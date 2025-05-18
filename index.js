@@ -7,6 +7,9 @@ const clickCountEl = document.getElementById('clickCount');
 const matchesEl = document.getElementById('matches');
 const totalPairsEl = document.getElementById('totalPairs');
 const timeLeftEl = document.getElementById('timeLeft');
+const gameOver = document.getElementById('gameOver');
+const finalScore = document.getElementById('finalScore');
+const tryAgain = document.getElementById('tryAgain');
 
 let cards = [];
 let firstCard = null;
@@ -40,6 +43,7 @@ window.onload = async () => {
 };
 
 difficultySelect.onchange = () => {
+  allPokemonCards = [];
   preloadByDifficulty(); 
 };
 
@@ -56,7 +60,6 @@ async function startGame() {
   startBtn.disabled = false;
 }
 
-
 async function GetCards() {
   const difficulty = difficultySelect.value;
 
@@ -66,12 +69,11 @@ async function GetCards() {
   timeRemaining = difficulty === 'easy' ? 60 : difficulty === 'medium' ? 90 : 120;
   timeLeftEl.textContent = timeRemaining;
 
-    if (allPokemonCards.length === 0) {
-    const unique = await getUniquePokemon(totalPairs);
-    allPokemonCards = [...unique, ...unique]; // Create matching pairs
-  }
+  // Always refetch cards for new difficulty
+  const unique = await getUniquePokemon(totalPairs);
+  allPokemonCards = [...unique, ...unique]; // Create matching pairs
 
-  return shuffle([...allPokemonCards]); 
+  return shuffle([...allPokemonCards]);
 }
 
 
@@ -100,9 +102,37 @@ resetBtn.onclick = () => {
   startGame();
 };
 
+tryAgain.onclick = () => {
+  clearTimeout(timer);
+  gameOver.style.display = 'none';
+  startGame();
+};
+
 function setGridLayout() {
+    let min;
+let maxWidth;
+
+switch (difficultySelect.value) {
+  case 'easy':
+    maxWidth = '1000px';
+    min = '150pt';
+    break;
+  case 'medium':
+    maxWidth = '1490px';
+    min = '150pt';
+    break;
+  case 'hard':
+    maxWidth = '1000px';
+    min = '100pt';
+    break;
+  default:
+    maxWidth = '400px';
+    min = 3;
+}
+
   gameBoard.style.display = 'grid';
-  gameBoard.style.gridTemplateColumns = `repeat(auto-fit, minmax(220px, 1fr))`;
+  gameBoard.style.maxWidth = maxWidth;
+  gameBoard.style.gridTemplateColumns = `repeat(auto-fit, minmax(${min}, 1fr))`;
   gameBoard.style.gap = '16px';
 }
 
@@ -188,7 +218,8 @@ function startTimer() {
     timeLeftEl.textContent = timeRemaining;
     if (timeRemaining === 0) {
       clearInterval(timer);
-      alert('💀 Time’s up! Game Over.');
+      gameOver.style.display = 'flex';
+      finalScore.textContent = matchedPairs/totalPairs * 100 + "%"
       lockBoard = true;
     }
   }, 1000);
