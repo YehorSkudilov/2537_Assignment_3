@@ -10,6 +10,7 @@ const timeLeftEl = document.getElementById('timeLeft');
 const gameOver = document.getElementById('gameOver');
 const finalScore = document.getElementById('finalScore');
 const tryAgain = document.getElementById('tryAgain');
+const powerUp = document.getElementById('powerUp');
 
 let cards = [];
 let firstCard = null;
@@ -172,6 +173,27 @@ function createCard(pokemon, isInteractive = true) {
   return card;
 }
 
+powerUp.onclick = () => {previewAllCards()}
+
+async function previewAllCards(duration = 1000) {
+  lockBoard = true;
+
+  const allCards = document.querySelectorAll('.card');
+
+  allCards.forEach(card => {
+    card.classList.add('flipped');
+    card.style.pointerEvents = 'none'; // disable clicks
+  });
+
+  await new Promise(resolve => setTimeout(resolve, duration));
+
+  allCards.forEach(card => {
+    card.classList.remove('flipped');
+    card.style.pointerEvents = 'auto'; // re-enable clicks
+  });
+
+  lockBoard = false;
+}
 
 
 function handleCardClick(card) {
@@ -213,9 +235,13 @@ function resetFlip() {
 }
 
 function startTimer() {
+  let initTime = timeRemaining;
   timer = setInterval(() => {
     timeRemaining--;
     timeLeftEl.textContent = timeRemaining;
+    if (timeRemaining/initTime*100 === 20) {
+      powerUp.style.display = 'inline-block';
+    }
     if (timeRemaining === 0) {
       clearInterval(timer);
       gameOver.style.display = 'flex';

@@ -191,3 +191,57 @@ header {
 #tryAgain:hover {
   background-color: #3742fa;
 }
+/* HEADER */
+body.light-theme header {
+  background-color: #ef5350;
+  color: white;
+}
+body.dark-theme header {
+  background-color: #9a302b;
+  color: #fff;
+}
+
+/* BUTTONS */
+body.light-theme .controls button {
+  background-color: #fff;
+  color: #333;
+}
+body.dark-theme .controls button {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+body.dark-theme .controls button:hover {
+  background-color: #d32f2f;
+}
+
+/* SELECT */
+body.dark-theme .controls select {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+/* GAME OVER OVERLAY */
+body.dark-theme #gameOver {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+body.light-theme #gameOver {
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+}
+
+/* GAME BOARD CARD BACK COLOR */
+body.dark-theme .card-back {
+  background-color: #2c2c2c;
+}
+body.light-theme .card-back {
+  background-color: #e0e0e0;
+}
+
+/* STATUS TEXT */
+body.dark-theme #status {
+  color: #eee;
+}
+body.light-theme #status {
+  color: #eee;
+}
