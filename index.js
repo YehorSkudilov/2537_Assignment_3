@@ -37,7 +37,6 @@ async function preloadByDifficulty() {
 
 }
 
-
 window.onload = async () => {
   preloadByDifficulty();
 
@@ -76,8 +75,6 @@ async function GetCards() {
 
   return shuffle([...allPokemonCards]);
 }
-
-
 
 
 function LoadGameBoard(gameCards, areClickable) {
@@ -136,9 +133,6 @@ switch (difficultySelect.value) {
   gameBoard.style.gridTemplateColumns = `repeat(auto-fit, minmax(${min}, 1fr))`;
   gameBoard.style.gap = '16px';
 }
-
-
-
 
 
 function resetGameState() {
